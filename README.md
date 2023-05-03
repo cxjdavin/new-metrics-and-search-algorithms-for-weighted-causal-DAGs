@@ -8,9 +8,11 @@ We have included a copy of the produced `figures` sub-directory in here so you m
 
 ## Experimental details
 
+Motivated by Theorem 7 of [CS23], we experimented on synthetic moral DAGs.
+
 ### Synthetic graph classes
 
-The synthetic graphs are random connected moral DAGs.
+The synthetic graphs are random connected moral DAGs of [SMG+20]. See Section 5 of [SMG+20] for details.
 
 1. Erdős-Rényi styled graphs  
 These graphs are parameterized by 2 parameters: $n$ and density $\rho$. Generate a random ordering $\sigma$ over $n$ vertices. Then, set the in-degree of the $n^{th}$ vertex (i.e. last vertex in the ordering) in the order to be $X_n = \max\{1, \texttt{Binomial}(n-1, \rho)\}$, and sample $X_n$ parents uniformly form the nodes earlier in the ordering. Finally, chordalize the graph by running the elimination algorithm of [KF09] with elimination ordering equal to the reverse of $\sigma$.
@@ -74,7 +76,7 @@ For any intervention set $\mathcal{I} \subseteq 2^V$ that fully orients the give
 
 When $\alpha = 0$, the generalized cost function is simply the number of interventions used that the other state-of-the-art methods were designed for. Here, `weighted_separator` incurs a similar cost despite having additional overheads to ensure theoretical guarantees for general $\alpha \geq 0$.
 
-For $\alpha > 0$, the generalized cost function is affected by the vertex weights, and `weighted_separator` incurs noticeably less generalized cost than the others already when $\alpha = 1$ (note that the plot is in log scale). This gap will only increase as we increase the value of $\alpha$ to make the generalized cost put more weightage on the total additive vertex cost of the intervention $\mathcal{I}$.
+For $\alpha > 0$, the generalized cost function is affected by the vertex weights, and `weighted_separator` incurs noticeably less generalized cost than the others already when $\alpha = 1$. This gap will only increase as we increase the value of $\alpha$ to make the generalized cost put more weightage on the total additive vertex cost of the intervention $\mathcal{I}$.
 
 As our experimental instances were randomly generated, it does look like existing algorithms, such as `separator`, is competitive with our weight-sensitive algorithm `weighted_separator` on such random instances, even though they are oblivious to vertex weights. However, we can easily create many instances where these algorithms performs arbitrarily worse. For instance, consider the star graph G<sup>\*</sup> on $n$ nodes where the leaves have weight 1 and the centroid has weight $w \gg n$; imagine $w = n^{10000}$.
 On G<sup>\*</sup>, `separator` will intervene on the centroid, incurring $w$ while `weighted_separator` will never intervene on the centroid and in the worst case intervene on all the leaves (paying at most $n-1$) to fully orient G<sup>\*</sup> from $\mathcal{E}$(G<sup>\*</sup>).
@@ -83,7 +85,7 @@ In terms of running time, `weighted_separator` has a similar running time as the
 
 We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe that the lines "flip", for both weight types. When $(\alpha, \beta) = (0,1)$, $k = 1$ is worst and $k = 3$ is best.  When $(\alpha, \beta) = (1,1)$, $k = 3$ is worst and $k = 1$ is best. This matches what we expect from our theoretical analyses.
 
-## Plots
+## All experimental plots
 
 ### Experiment 1 (Type 1 weight, $\alpha = 0$, $\beta = 1$)
 <p float="middle">
@@ -95,26 +97,26 @@ We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe
 
 ### Experiment 1 (Type 1 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp1_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_time.png" alt="Time taken, in secs for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type1_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type1_alpha1_beta1_generalized_cost.png" alt="Generalized cost for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type1_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type1_alpha1_beta1_time.png" alt="Time taken, in secs for experiment 1, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 1 (Type 2 weight, $\alpha = 0$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp1_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_time.png" alt="Time taken, in secs for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha0_beta1_generalized_cost.png" alt="Generalized cost for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha0_beta1_time.png" alt="Time taken, in secs for experiment 1, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 1 (Type 2 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp1_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp1_type1_alpha0_beta1_time.png" alt="Time taken, in secs for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha1_beta1_generalized_cost.png" alt="Generalized cost for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp1_type2_alpha1_beta1_time.png" alt="Time taken, in secs for experiment 1, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 2 (Type 1 weight, $\alpha = 0$, $\beta = 1$)
@@ -127,26 +129,26 @@ We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe
 
 ### Experiment 2 (Type 1 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp2_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type1_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type1_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type1_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type1_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 2, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 2 (Type 2 weight, $\alpha = 0$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp2_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 2, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 2 (Type 2 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp2_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp2_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp2_type2_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 2, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 3 (Type 1 weight, $\alpha = 0$, $\beta = 1$)
@@ -159,26 +161,26 @@ We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe
 
 ### Experiment 3 (Type 1 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp3_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type1_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type1_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type1_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type1_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 3, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 3 (Type 2 weight, $\alpha = 0$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp3_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 3, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 3 (Type 2 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp3_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp3_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp3_type2_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 3, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 4 (Type 1 weight, $\alpha = 0$, $\beta = 1$)
@@ -191,26 +193,26 @@ We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe
 
 ### Experiment 4 (Type 1 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp4_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type1_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type1_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type1_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type1_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 4, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 4 (Type 2 weight, $\alpha = 0$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp4_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 4, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 4 (Type 2 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp4_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp4_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp4_type2_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 4, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 5 (Type 1 weight, $\alpha = 0$, $\beta = 1$)
@@ -223,29 +225,31 @@ We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe
 
 ### Experiment 5 (Type 1 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp5_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type1_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type1_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type1_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type1_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 5, Type 1 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 5 (Type 2 weight, $\alpha = 0$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp5_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 5, Type 2 weight, alpha = 0, beta = 1" width="45%"/>
 </p>
 
 ### Experiment 5 (Type 2 weight, $\alpha = 1$, $\beta = 1$)
 <p float="middle">
-<img src="./figures/exp5_type1_alpha0_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_generalized_cost.png" alt="Generalized cost for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
-<img src="./figures/exp5_type1_alpha0_beta1_time.png" alt="Time taken, in secs for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha1_beta1_generalized_cost_log.png" alt="Generalized cost (log scale) for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha1_beta1_generalized_cost.png" alt="Generalized cost for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha1_beta1_time_log.png" alt="Time taken, in secs (log scale) for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
+<img src="./figures/exp5_type2_alpha1_beta1_time.png" alt="Time taken, in secs for Experiment 5, Type 2 weight, alpha = 1, beta = 1" width="45%"/>
 </p>
 
 ## References
+
+[This paper] Davin Choo, Kirankumar Shiragur. New metrics and search algorithms for weighted causal DAGs. International Conference on Machine Learning, 2023. Available at **Coming soon**
 
 [GRE84] John R. Gilbert, Donald J. Rose, and Anders Edenbrandt. A Separator Theorem for Chordal Graphs. SIAM Journal on Algebraic Discrete Methods, 1984. Available at: https://epubs.siam.org/doi/abs/10.1137/0605032
 
