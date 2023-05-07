@@ -15,14 +15,14 @@ Motivated by Theorem 7 of [CS23], we experimented on synthetic moral DAGs.
 The synthetic graphs are random connected moral DAGs of [SMG+20]. See Section 5 of [SMG+20] for details.
 
 1. Erdős-Rényi styled graphs  
-These graphs are parameterized by 2 parameters: $n$ and density $\rho$. Generate a random ordering $\sigma$ over $n$ vertices. Then, set the in-degree of the $n^{th}$ vertex (i.e. last vertex in the ordering) in the order to be $X_n = \max\{1, \texttt{Binomial}(n-1, \rho)\}$, and sample $X_n$ parents uniformly form the nodes earlier in the ordering. Finally, chordalize the graph by running the elimination algorithm of [KF09] with elimination ordering equal to the reverse of $\sigma$.
+These graphs are parameterized by 2 parameters: $n$ and density $\rho$. Generate a random ordering $\sigma$ over $n$ vertices. Then, set the in-degree of the $n^{th}$ vertex (i.e. last vertex in the ordering) in the order to be $X_n = \max\\{1, \texttt{Binomial}(n-1, \rho)\\}$, and sample $X_n$ parents uniformly form the nodes earlier in the ordering. Finally, chordalize the graph by running the elimination algorithm of [KF09] with elimination ordering equal to the reverse of $\sigma$.
 
 2. Tree-like graphs  
 These graphs are parameterized by 4 parameters: $n$, degree $d$, $e_{\min}$, and $e_{\max}$. First, generate a complete directed $d$-ary tree on $n$ nodes. Then, add $\texttt{Uniform}(e_{\min}, e_{\max})$ edges to the tree. Finally, compute a topological order of the graph by DFS and triangulate the graph using that order.
 
 ### Weights and generalized cost parameters
 
-We ran experiments for $\alpha \in \{0,1\}$ and $\beta = 1$ on two different types of weight classes for a graph on $n$ vertices:
+We ran experiments for $\alpha \in \\{0,1\\}$ and $\beta = 1$ on two different types of weight classes for a graph on $n$ vertices:
 
 1. Type 1  
 The weight of each vertex is independently sampled from an exponential distribution $\exp(n^2)$ with parameter $n^2$. This is to simulate the setting where there is a spread in the costs of the vertices.
@@ -32,22 +32,22 @@ A randomly chosen $p=0.1$ fraction of vertices are assigned weight $n^2$ while t
 
 ### Experiments
 
-We have 4 sets of experiments in total (weight type $\in \{1, 2\}$; $\alpha \in \{0,1\}$), where each set follows the 5 experiments performed in [CSB22].
+We have 4 sets of experiments in total (weight type $\in \\{1, 2\\}$; $\alpha \in \\{0,1\\}$), where each set follows the 5 experiments performed in [CSB22].
 
 1. Experiment 1:  
-Graph class 1 with $n \in \{10, 15, 20, 25\}$ and density $\rho = 0.1$.
+Graph class 1 with $n \in \\{10, 15, 20, 25\\}$ and density $\rho = 0.1$.
 
 2. Experiment 2:  
-Graph class 1 with $n \in \{8, 10, 12, 14\}$ and density $\rho = 0.1$.
+Graph class 1 with $n \in \\{8, 10, 12, 14\\}$ and density $\rho = 0.1$.
 
 3. Experiment 3:  
-Graph class 2 with $n \in \{100, 200, 300, 400, 500\}$ and $(\text{degree}, e_{\min}, e_{\max}) = (4, 2, 5)$.
+Graph class 2 with $n \in \\{100, 200, 300, 400, 500\\}$ and $(\text{degree}, e_{\min}, e_{\max}) = (4, 2, 5)$.
 
 4. Experiment 4:  
-Graph class 1 with $n \in \{10, 15, 20, 25\}$ and density $\rho = 0.1$.
+Graph class 1 with $n \in \\{10, 15, 20, 25\\}$ and density $\rho = 0.1$.
 
 5. Experiment 5:  
-Graph class 2 with $n \in \{100, 200, 300, 400, 500\}$ and $(\text{degree}, e_{\min}, e_{\max}) = (40, 20, 50)$.
+Graph class 2 with $n \in \\{100, 200, 300, 400, 500\\}$ and $(\text{degree}, e_{\min}, e_{\max}) = (40, 20, 50)$.
 
 ### Algorithms benchmarked
 
@@ -78,12 +78,12 @@ When $\alpha = 0$, the generalized cost function is simply the number of interve
 
 For $\alpha > 0$, the generalized cost function is affected by the vertex weights, and `weighted_separator` incurs noticeably less generalized cost than the others already when $\alpha = 1$. This gap will only increase as we increase the value of $\alpha$ to make the generalized cost put more weightage on the total additive vertex cost of the intervention $\mathcal{I}$.
 
-As our experimental instances were randomly generated, it does look like existing algorithms, such as `separator`, is competitive with our weight-sensitive algorithm `weighted_separator` on such random instances, even though they are oblivious to vertex weights. However, we can easily create many instances where these algorithms performs arbitrarily worse. For instance, consider the star graph G<sup>\*</sup> on $n$ nodes where the leaves have weight 1 and the centroid has weight $w \gg n$; imagine $w = n^{10000}$.
-On G<sup>\*</sup>, `separator` will intervene on the centroid, incurring $w$ while `weighted_separator` will never intervene on the centroid and in the worst case intervene on all the leaves (paying at most $n-1$) to fully orient G<sup>\*</sup> from $\mathcal{E}$(G<sup>\*</sup>).
+As our experimental instances were randomly generated, it does look like existing algorithms, such as `separator`, is competitive with our weight-sensitive algorithm `weighted_separator` on such random instances, even though they are oblivious to vertex weights. However, we can easily create many instances where these algorithms performs arbitrarily worse. For instance, consider the star graph $G^\*$ on $n$ nodes where the leaves have weight 1 and the centroid has weight $w \gg n$; imagine $w = n^{10000}$.
+On $G^\*$, `separator` will intervene on the centroid, incurring $w$ while `weighted_separator` will never intervene on the centroid and in the worst case intervene on all the leaves (paying at most $n-1$) to fully orient $G^\*$ from $\mathcal{E}(G^\*)$.
 
 In terms of running time, `weighted_separator` has a similar running time as the other state-of-the-art algorithms across all experiments. To be precise, `weighted_separator` is faster than all benchmarked algorithms except `separator`. This is expected as both are based on 1/2-clique separators but `weighted_separator` has additional computational overheads to handle dangling components.
 
-We also tested the bounded size implementation for $k \in \{1,3,5\}$ and observe that the lines "flip", for both weight types. When $(\alpha, \beta) = (0,1)$, $k = 1$ is worst and $k = 3$ is best.  When $(\alpha, \beta) = (1,1)$, $k = 3$ is worst and $k = 1$ is best. This matches what we expect from our theoretical analyses.
+We also tested the bounded size implementation for $k \in \\{1,3,5\\}$ and observe that the lines "flip", for both weight types. When $(\alpha, \beta) = (0,1)$, $k = 1$ is worst and $k = 3$ is best.  When $(\alpha, \beta) = (1,1)$, $k = 3$ is worst and $k = 1$ is best. This matches what we expect from our theoretical analyses.
 
 ## All experimental plots
 
