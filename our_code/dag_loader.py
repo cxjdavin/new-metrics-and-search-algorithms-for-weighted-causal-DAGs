@@ -30,12 +30,7 @@ class DagLoader:
 
     @property
     def dag_folder(self):
-        other_params = ""
-        other_params += "weight_type={0}".format(self.other_params["weight_type"])
-        other_params += ",alpha={0}".format(self.other_params["alpha"])
-        other_params += ",beta={0}".format(self.other_params["beta"])
-        if self.other_params["weight_type"] == 2:
-            other_params += ",p={0}".format(self.other_params["p"])
+        other_params = ','.join([f"{key}={value}" for key, value in self.other_params.items()])
         return os.path.join(DATA_FOLDER, f'sampler={self.sampler.name},nnodes={self.nnodes},num_dags={self.num_dags},{other_params}')
 
     @property

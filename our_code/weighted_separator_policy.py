@@ -337,6 +337,8 @@ def weighted_separator_policy(dag: DAG, k: int, weights: list, alpha: float, bet
                                         arcs_into_S_source = False
                                         arcs_from_S_source = False
                                         for u,v in current_cpdag.arcs:
+                                            if u in S_source and v in S_source:
+                                                continue
                                             if u in Q_nodes and v in S_source:
                                                 arcs_into_S_source = True
                                             if u in S_source and v in Q_nodes:
