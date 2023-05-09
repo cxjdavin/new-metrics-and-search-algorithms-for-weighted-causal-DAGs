@@ -1,6 +1,6 @@
 # New metrics and search algorithms for weighted causal DAGs
 
-This is the accompanying repository the "New metrics and search algorithms for weighted causal DAGs" paper. It is available at **coming soon**.
+This is the accompanying repository the "New metrics and search algorithms for weighted causal DAGs" paper. It is available at https://arxiv.org/pdf/2305.04445.pdf.
 
 Our experiments follow the setup of https://github.com/csquires/dct-policy (the accompanying repository of [SMG+20]) and https://github.com/cxjdavin/subset-verification-and-search-algorithms-for-causal-DAGs (the accompanying repository of [CSB22]).
 
@@ -249,7 +249,7 @@ We also tested the bounded size implementation for $k \in \\{1,3,5\\}$ and obser
 
 ## References
 
-[This paper] Davin Choo, Kirankumar Shiragur. New metrics and search algorithms for weighted causal DAGs. International Conference on Machine Learning, 2023. Available at **Coming soon**
+[This paper] Davin Choo, Kirankumar Shiragur. New metrics and search algorithms for weighted causal DAGs. International Conference on Machine Learning, 2023. Available at https://arxiv.org/pdf/2305.04445.pdf
 
 [GRE84] John R. Gilbert, Donald J. Rose, and Anders Edenbrandt. A Separator Theorem for Chordal Graphs. SIAM Journal on Algebraic Discrete Methods, 1984. Available at: https://epubs.siam.org/doi/abs/10.1137/0605032
 
