@@ -1,6 +1,6 @@
 # New metrics and search algorithms for weighted causal DAGs
 
-This is the accompanying repository the "New metrics and search algorithms for weighted causal DAGs" paper. It is available at https://arxiv.org/pdf/2305.04445.pdf.
+This is the accompanying repository of the "New metrics and search algorithms for weighted causal DAGs" paper. It is available at https://arxiv.org/pdf/2305.04445.pdf.
 
 Our experiments follow the setup of https://github.com/csquires/dct-policy (the accompanying repository of [SMG+20]) and https://github.com/cxjdavin/subset-verification-and-search-algorithms-for-causal-DAGs (the accompanying repository of [CSB22]).
 
